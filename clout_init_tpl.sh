@@ -6,13 +6,16 @@ apt install -y libguestfs-tools
 # set variables
 IMAGE_URL="https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
 IMAGE="noble-server-cloudimg-amd64.img"
-TEMPLATE_NAME="ubuntu-noble-cloudinit"
+OS_TYPE="l26"
+TEMPLATE_NAME="ubuntu-24.04-cloudinit"
 VM_ID="9000"
 MEMORY="1024"
 CPU="1"
+VGA="qxl"
 DISK_STOR="local-lvm"
 NET_BRIDGE="vmbr0"
 USER="ubuntu"
+PASSWORD=$(openssl rand -base64 14)
 SSH_KEY="/root/.ssh/id_rsa.pub"
 
 
@@ -32,8 +35,18 @@ qm create $VM_ID --name $TEMPLATE_NAME --memory $MEMORY --net0 virtio,bridge=$NE
 qm importdisk $VM_ID $IMAGE $DISK_STOR
 
 qm set $VM_ID --scsihw virtio-scsi-pci --virtio0 $DISK_STOR:vm-$VM_ID-disk-0 --serial0 socket
-qm set $VM_ID --boot c --bootdisk virtio0 --ostype l26 --agent 1 --hotplug disk,network,usb
-qm set $VM_ID --vcpus 1 --vga qxl --ide2 $DISK_STOR:cloudinit --vmgenid 1 --ipconfig0 ip=dhcp
-qm set $VM_ID --ciuser $USER --sshkeys $SSH_KEY
+qm set $VM_ID --boot c --bootdisk virtio0 --ostype $OS_TYPE --agent 1 --hotplug disk,network,usb
+qm set $VM_ID --vcpus 1 --vga $VGA --ide2 $DISK_STOR:cloudinit --vmgenid 1 --ipconfig0 ip=dhcp
+qm set $VM_ID --ciuser $USER --cipassword $PASSWORD --sshkeys $SSH_KEY
 
 qm template $VM_ID
+
+echo -e "\n\033[0;32m=============================\033[0m"
+echo -e "\033[0;32mVM with ID $VM_ID created\033[0m"
+echo -e "\033[0;32mVM name: $TEMPLATE_NAME\033[0m"
+echo -e "\033[0;32mUsername: $USER\033[0m"
+echo -e "\033[0;32mPassword: $PASSWORD\033[0m"
+echo -e "\033[0;32mTemplate image: $IMAGE\033[0m"
+echo -e "\033[0;32mTemplate image checksum: $(sha256sum $IMAGE)\033[0m"
+echo -e "\033[0;32mTemplate image size: $(du -h $IMAGE | awk '{print $1}')\033[0m"
+echo -e "\033[0;32m=============================\033[0m"
