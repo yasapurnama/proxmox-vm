@@ -22,6 +22,7 @@ resource "proxmox_vm_qemu" "default" {
   network {
     model    = var.network_model
     bridge   = var.network_bridge
+    tag      = var.network_tag
     firewall = var.network_firewall
   }
 

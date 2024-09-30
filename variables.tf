@@ -126,6 +126,12 @@ variable "network_bridge" {
   default     = "vmbr0"
 }
 
+variable "network_tag" {
+  description = "The network tag for the VMs"
+  type        = number
+  default     = 0
+}
+
 variable "network_firewall" {
   description = "The network firewall for the VMs"
   type        = bool
