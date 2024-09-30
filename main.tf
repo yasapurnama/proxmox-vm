@@ -32,7 +32,7 @@ resource "proxmox_vm_qemu" "default" {
         disk {
           size   = var.disk_size
           storage = var.disk_storage
-          discard = true
+          discard = var.disk_discard
         }
       }
     }

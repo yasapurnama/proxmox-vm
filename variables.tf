@@ -150,6 +150,11 @@ variable "disk_storage" {
   default     = "local-lvm"
 }
 
+variable "disk_discard" {
+  description = "The discard behavior for the disk"
+  type        = bool
+}
+
 variable "ssh_user" {
   description = "The SSH user to connect to the VMs"
   type        = string
