@@ -28,6 +28,15 @@ if [ ! -f $IMAGE ]; then
   wget $IMAGE_URL -O $IMAGE
 fi
 
+
+mkdir -p /mnt/customize_image
+guestmount -a $IMAGE -i --rw /mnt/customize_image
+cd /mnt/customize_image/var/lib/systemd/
+dd if=/dev/urandom of=random-seed bs=512 count=4
+chmod 755 random-seed
+cd -
+guestunmount /mnt/customize_image/
+
 virt-customize -a $IMAGE --install qemu-guest-agent
 
 qm create $VM_ID --name $TEMPLATE_NAME --memory $MEMORY --net0 virtio,bridge=$NET_BRIDGE --cpu host --sockets 1 --cores $CPU
