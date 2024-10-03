@@ -1,7 +1,9 @@
 #!/bin/bash
 
-apt update
-apt install -y libguestfs-tools
+if [[ ! $(dpkg -s libguestfs-tools) ]]; then
+  apt update
+  apt install -y libguestfs-tools
+fi
 
 # set variables
 IMAGE_URL="https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
