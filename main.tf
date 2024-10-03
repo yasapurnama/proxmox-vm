@@ -45,19 +45,19 @@ resource "proxmox_vm_qemu" "default" {
     }
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo rm /etc/machine-id",
-      "sudo systemd-machine-id-setup",
-      "sudo shutdown -r +1"
-    ]
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "sudo rm /etc/machine-id",
+  #     "sudo systemd-machine-id-setup",
+  #     "sudo shutdown -r +1"
+  #   ]
 
-    connection {
-      type = "ssh"
-      host = self.ssh_host
-      user = var.ssh_user
-      private_key = fileexists(var.ssh_private_key) ? file(var.ssh_private_key) : var.ssh_private_key
-      timeout = "2m"
-    }
-  }
+  #   connection {
+  #     type = "ssh"
+  #     host = self.ssh_host
+  #     user = var.ssh_user
+  #     private_key = fileexists(var.ssh_private_key) ? file(var.ssh_private_key) : var.ssh_private_key
+  #     timeout = "2m"
+  #   }
+  # }
 }
