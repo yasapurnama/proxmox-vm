@@ -17,6 +17,7 @@ resource "proxmox_vm_qemu" "default" {
   hotplug  = var.hotplug
   scsihw   = var.scsihw
   bootdisk = var.bootdisk
+  onboot   = var.onboot
 
 
   network {
