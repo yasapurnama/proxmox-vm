@@ -1,5 +1,6 @@
 resource "proxmox_vm_qemu" "default" {
   count = var.vm_count
+  vmid  = var.vmid
   name  = "${var.name}-${count.index}"
 
   target_node = var.target_node

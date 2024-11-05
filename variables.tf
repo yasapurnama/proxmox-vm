@@ -19,6 +19,12 @@ variable "vm_count" {
   default     = 1
 }
 
+variable "vmid" {
+  description = "The VM ID to create"
+  type        = number
+  default     = 0
+}
+
 variable "name" {
   description = "The name of the VMs to create"
   type        = string
