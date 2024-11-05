@@ -78,6 +78,12 @@ variable "ip_dns_nameserver" {
   default     = "8.8.8.8"
 }
 
+variable "vcpus" {
+  description = "The number of vCPUs for the VMs"
+  type        = number
+  default     = 1
+}
+
 variable "cpu_cores" {
   description = "The number of CPU cores for the VMs"
   type        = number

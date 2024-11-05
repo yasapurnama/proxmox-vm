@@ -11,6 +11,7 @@ resource "proxmox_vm_qemu" "default" {
   ipconfig0 = var.ip_dhcp ? "ip=dhcp" : "ip=${var.ip_network_id}.${var.ip_network_host + count.index}/24,gw=${var.ip_gateway}"
   nameserver = var.ip_dhcp ? "" : var.ip_dns_nameserver
 
+  vcpus    = var.vcpus
   cores    = var.cpu_cores
   sockets  = var.cpu_socket
   memory   = var.memory
