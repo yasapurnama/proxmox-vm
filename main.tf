@@ -47,4 +47,11 @@ resource "proxmox_vm_qemu" "default" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [
+      ciuser,
+      sshkey
+    ]
+  }
+
 }
