@@ -108,6 +108,12 @@ variable "memory" {
   default     = 2048
 }
 
+variable "balloon" {
+  description = "The balloon memory for the VMs"
+  type        = number
+  default     = 0
+}
+
 variable "hotplug" {
   description = "The hotplug devices for the VMs"
   type        = string

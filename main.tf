@@ -16,6 +16,7 @@ resource "proxmox_vm_qemu" "default" {
   cores    = var.cpu_cores
   sockets  = var.cpu_socket
   memory   = var.memory
+  balloon  = var.balloon
   hotplug  = var.hotplug
   scsihw   = var.scsihw
   bootdisk = var.bootdisk
