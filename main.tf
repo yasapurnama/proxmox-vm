@@ -21,6 +21,7 @@ resource "proxmox_vm_qemu" "default" {
   scsihw   = var.scsihw
   bootdisk = var.bootdisk
   onboot   = var.onboot
+  vm_state = var.vm_state
 
 
   network {
