@@ -35,7 +35,8 @@ resource "proxmox_vm_qemu" "default" {
     virtio {
       virtio0 {
         disk {
-          size   = var.disk_size
+          format  = var.disk_format
+          size    = var.disk_size
           storage = var.disk_storage
           discard = var.disk_discard
         }
